@@ -1,11 +1,13 @@
-function LinkedList() {
+function DoublyLinkedList() {
     let Node = function(element) {
         this.element = element;
-        this.next = null;
+        this.prev = null;
+        this.next = null;   // 新增
     };
 
     let length = 0;
     let head = null;
+    let tail = null;        // 新增
 
     this.append = function(element) {
         let node = new Node(element);
@@ -29,8 +31,18 @@ function LinkedList() {
         let index = 0;
         if (position > -1 &&　position <= length) {
             if (position === 0) {
-                node.next = current;
-                head = node;
+                if (!head) {
+                    head = node;
+                    tail = node;
+                } else {
+                    current.prev = node;
+                    node.next = current;
+                    head = node;
+                }
+            } else if (position === length) {   // 插入尾部
+                tail.next = node;
+                node.prev = tail;
+                tail = node;
             } else {
                 while(index < position) {
                     previous = current;
@@ -38,7 +50,9 @@ function LinkedList() {
                     index++;
                 }
                 node.next = current;
+                node.prev = previous;           // 新增
                 previous.next = node;
+                current.prev = node;            // 新增
                 
             }
             length++;
@@ -53,7 +67,16 @@ function LinkedList() {
         let current = head;
         let index = 0;
         if (position > -1 && position < length) {
-            if (position === 0) head = current.next;
+            if (position === 0) {
+                head = current.next;
+                if (length === 1) {
+                    // 如果只有一个节点,tail 置 null，否则就保留了原节点的索引
+                    tail === null;
+                } else {
+                    // 新上位节点的 prev 保留了旧头节点的索引，所以要置 null.
+                    head.prev = null;
+                }
+            }
             else {
                 while(index < position) {
                     previous = current;
@@ -61,10 +84,14 @@ function LinkedList() {
                     index++;
                 }
                 previous.next = current.next;
+                current.next.prev = previous;       // 新增
             }
+            length--;
+            return current.element;
+        } else {
+            return null;
         }
-        length--;
-        return current.element;
+        
     };
 
     this.remove = function(element) {
@@ -96,6 +123,10 @@ function LinkedList() {
         return head;
     };
 
+    this.getTail = function() {
+        return tail;
+    }
+
     this.toString = function() {
         let current = head;
         let string = '';
@@ -110,7 +141,9 @@ function LinkedList() {
 
 }
 
-let linkedlist = new LinkedList();
-linkedlist.append(1)
-linkedlist.append(12);
-console.log(linkedlist.indexOf(1))
+let linkedlist = new DoublyLinkedList();
+linkedlist.insert(0, 1)
+linkedlist.insert(1, 2)
+linkedlist.insert(2, 3)
+linkedlist.insert(3, 4)
+console.log(linkedlist.indexOf(2))
