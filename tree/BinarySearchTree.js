@@ -74,6 +74,51 @@ function BinarySearchTree() {
             callback(node.key);
         }
     }
+
+    this.remove = function(key) {
+        root = removeNode(root, key)
+    }
+
+    removeNode = function(node, key) {
+        // 第一种情况：本来就没有树，返回 null
+        if (node === null) return null;
+
+        // 当要删除的值还没找到时，if 分支和 else-if 其实只是在一直递归
+        if (key < node.key) {
+            node.left = removeNode(node.left, key);
+            return node;
+        } else if (key > node.key) {
+            node.right = removeNode(node.right, key);
+            return node;
+        } else { // 找到节点的情况
+            // 度为0（没有子节点），直接置空然后返回
+            if (node.left === null && node.right === null) {    
+                node = null;
+                return node;
+            // 只有一个节点的情况
+            } else if (node.left === null) {
+                node = node.right;
+                return node;
+            } else if (node.right === null) {
+                node = node.left;
+                return node;
+            // 两个节点都存在的情况
+            } else {
+                let aux = findMinNode(node.right);
+                node.key = aux.key;
+                node.right = removeNode(node.right, aux.key);
+                return node;
+            }
+        }
+        return node;
+    }
+
+    findMinNode = function(node) {
+        while (node && node.left !== null) {
+            node = node.left;
+        }
+        return node;
+    }
 }
 
 module.exports = exports = {
