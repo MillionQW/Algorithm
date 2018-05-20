@@ -4,15 +4,16 @@ function quickSort(array, left, right) {
 
         index = partition(array, left, right);
 
-        if (left < index - 1) {
-            quickSort(array, left, index - 1);
-        } 
-        if (right > index) {
-            quickSort(array, index, right);
+        if (left < index - 1 && right > index) {
+            return quickSort(array, left, index - 1).concat(quickSort(array, index, right))
         }
-    } else {
-        return array;
-    }
+        // if (left < index - 1) {
+        //     quickSort(array, left, index - 1);
+        // } 
+        // if (right > index) {
+        //     quickSort(array, index, right);
+        // }
+    } 
 
     
 
