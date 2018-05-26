@@ -1,49 +1,40 @@
-function quickSort(array, left, right) {
+function quicksort(arr, left, right) {
     let index;
-    if (array.length > 1) {
 
-        index = partition(array, left, right);
+    if (arr.length > 1) {
+        let index = partition(arr, left, right);
 
-        if (left < index - 1 && right > index) {
-            return quickSort(array, left, index - 1).concat(quickSort(array, index, right))
+        if (left < index) {
+            quicksort(arr, left, index - 1);
         }
-        // if (left < index - 1) {
-        //     quickSort(array, left, index - 1);
-        // } 
-        // if (right > index) {
-        //     quickSort(array, index, right);
-        // }
-    } 
-
-    
-
-    function partition(array, left, right) {
-        let pivot = array[Math.floor((right + left) / 2)];
-        let i = left;
-        let j = right;
-
-        while (i <= j) {
-            while (array[i] < pivot) {
-                i++;
-            }
-            while (array[j] > pivot) {
-                j--;
-            }
-            if (i <= j) {
-                swap(array, i, j);
-                i++;
-                j--;
-            }
+        if (right > index) {
+            quicksort(arr, index, right);
         }
-        return i;
     }
+}
 
-    function swap(array, i, j) {
-        let temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
+function partiion(arr, left, right) {
+    let i = left, j = right;
+    let pivot = arr[Math.floor(arr.length / 2)];
+
+    while (i <= j) {
+        while (arr[i] < pivot) {
+            i++;
+        }
+        while (arr[j] > pivot) {
+            j++;
+        }
+        if (i <= j) {
+            swap(arr, i, j);
+            i++;
+            j--;
+        }
     }
-} 
+    return i;
+}
 
-let arr = [3, 5, 1, 6, 4, 7, 2];
-console.log(quickSort(arr, 0, arr.length-1));
+function swap(arr, i, j) {
+    let temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
