@@ -110,9 +110,9 @@ function LinkedList() {
 
 }
 
-module.exports = LinkedList;
+export default LinkedList;
 
-// let linkedlist = new LinkedList();
-// linkedlist.append(1)
-// linkedlist.append(12);
-// console.log(linkedlist.indexOf(1))
+let linkedlist = new LinkedList();
+linkedlist.append(1)
+linkedlist.append(12);
+console.log(linkedlist.indexOf(1))
