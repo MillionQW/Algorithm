@@ -35,6 +35,6 @@ function heapify(arr, length,  i) {
     }
 }
 
-let arr = [3, 5, 1, 6, 4, 7, 2]
+let arr = [2,4,6,9,3,6,3]
 arr.heapSort();
 console.log(arr);
