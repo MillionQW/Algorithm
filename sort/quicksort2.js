@@ -1,4 +1,6 @@
+let randomArr = require('../randomArr').randomArr;
 function quickSort(arr, left, right) {
+    right = right === arr.length ? right -1 : right;
     if (left < right) {
         random = Math.floor(left + Math.random() * (right - left + 1));
         swap(arr, random, right);
@@ -36,6 +38,20 @@ function swap(arr, left, right) {
     arr[right] = temp;
 }
 
-let arr = [5,7,2,4,6];
-quickSort(arr, 0, arr.length-1);
-console.log(arr);
+// 设置对数器与系统中的排序做比较，测试是否通过
+for (let i = 0; i < 200; i++) {
+    let arr = randomArr();
+    let comparseArr = arr.concat();
+    let errorArr = arr.concat();
+    quickSort(arr, 0, arr.length);
+    comparseArr.sort();
+    arr.forEach((item, index) => {
+        if (item !== comparseArr[index]) {
+            console.log('排序不一致');
+            console.log(`数组：${errorArr}`);
+            console.log(`验证数组排序结果${arr}`);
+            console.log(`机排序结果${comparseArr}`);
+        }
+    })
+}
+console.log('测试通过');

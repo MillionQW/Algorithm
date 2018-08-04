@@ -1,5 +1,7 @@
 let swap = require('./utils').swap;
-let randomArr = require('./randomArr').randomArr;
+// let randomArr = require('./randomArr').randomArr;
+let validateSort = require('./utils').validateSort;
+
 let heapSort = function(arr) {
     if (arr.length < 2 || arr == null) return;
     for (let i = 0; i < arr.length; i++) {
@@ -36,19 +38,21 @@ function heapify(arr, index, size) {
     }
 }
 // 设置对数器与系统中的排序做比较，测试是否通过
-for (let i = 0; i < 200; i++) {
-    let arr = randomArr();
-    let comparseArr = arr.concat();
-    let errorArr = arr.concat();
-    heapSort(arr);
-    comparseArr.sort();
-    arr.forEach((item, index) => {
-        if (item !== comparseArr[index]) {
-            console.log('排序不一致');
-            console.log(`数组：${errorArr}`);
-            console.log(`堆排序结果${arr}`);
-            console.log(`机排序结果${comparseArr}`);
-        }
-    })
-}
-console.log('测试通过');
+// for (let i = 0; i < 200; i++) {
+//     let arr = randomArr();
+//     let comparseArr = arr.concat();
+//     let errorArr = arr.concat();
+//     heapSort(arr);
+//     comparseArr.sort();
+//     arr.forEach((item, index) => {
+//         if (item !== comparseArr[index]) {
+//             console.log('排序不一致');
+//             console.log(`数组：${errorArr}`);
+//             console.log(`堆排序结果${arr}`);
+//             console.log(`机排序结果${comparseArr}`);
+//         }
+//     })
+// }
+// console.log('测试通过');
+validateSort(heapSort);
+
