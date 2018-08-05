@@ -38,4 +38,3 @@ function merge(left, right) {
     return result;
 }
 
-console.log([1,2,3,5,8,6,7].mergeSort())
